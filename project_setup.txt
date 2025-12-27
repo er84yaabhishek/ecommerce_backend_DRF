@@ -1,0 +1,61 @@
+python -m venv venv
+venv\Scripts\activate
+
+pip install django djangorestframework psycopg2-binary python-dotenv
+
+django-admin startproject backend .
+python manage.py startapp store
+
+
+
+
+pip install django-cors-headers
+
+
+
+
+DATABASE SETUP
+
+
+net start postgresql-x64-18
+"C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -h 127.0.0.1 -p 5433
+
+postgres=# CREATE ROLE postgres WITH LOGIN PASSWORD 'admin';
+ERROR:  role "postgres" already exists
+postgres=# ALTER ROLE postgres SUPERUSER CREATEDB CREATEROLE;
+ALTER ROLE
+postgres=# CREATE DATABASE ecommerce_db OWNER postgres;
+CREATE DATABASE
+postgres=# \l   (to show all db list)
+
+setting.py
+
+from pathlib import Path
+import os
+from dotenv import load_dotenv
+load_dotenv(BASE_DIR / ".env")
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER' : os.getenv('DB_USER'),
+        'PASSWORD' : os.getenv('DB_PASSWORD'),
+        'HOST' : os.getenv('DB_HOST'),
+        'PORT' : os.getenv('DB_PORT'),
+    }
+}
+
+
+python manage.py migrate
+
+
+===============================================================================
+video 2
+
+create models: Category , Product,UserProfile,Order,Order Item
+use django Admin to add sample DATA 
+create DRF Serializers for Product & Category
+Expose/api/products/and /api/categories/endpoints
+Tailwind CSS setup
