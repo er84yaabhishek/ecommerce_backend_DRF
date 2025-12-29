@@ -126,11 +126,19 @@ OrderItem
  ├── belongs to → Order
  └── belongs to → Product
 
-==================================================
+
 User
  └── Order
        └── OrderItem
               └── Product
                      └── Category
 
+===========================================================================
+video 3
 
+Frontend Product Listing page
+
+fetch/api/products/using useEffect + fetch()
+Display products in grid(image + name + price)
+Add loading / error states
+Tailwind styling
