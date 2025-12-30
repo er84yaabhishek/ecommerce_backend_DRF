@@ -8,6 +8,14 @@ def get_products(req):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
+@api_view(['GET'])
+def get_product(req, pk):
+    try:
+        product = Product.objects.get(id=pk)
+        serializer = ProductSerializer(product, context={'request': req})
+        return Response(serializer.data)
+    except Product.DoesNotExist:
+        return Response({'error': 'Product not found'}, status=404) 
 
 @api_view(['GET'])
 def get_categories(req):
